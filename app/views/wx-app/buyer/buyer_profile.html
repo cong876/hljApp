@@ -1,0 +1,15 @@
+<div class="buyerProfile">
+  <div class="tags">
+    <ul>
+      <li><span>头像</span><div class="headImageContainer"><div class="squareImage" yeye-bg="user.headImageUrl"></div></div><span></span></li>
+      <hr/>
+      <li><span>昵称</span><span class="normalSize" ng-bind="user.nickname"></span><span class="placeholder">z</span></li>
+      <hr/>
+      <li><span>手机</span><span class="normalSize" ng-bind="user.mobile"></span><span>></span></li>
+      <hr/>
+      <li><span>邮箱</span><span class="normalSize" ng-bind="user.email"></span><span>></span></li>
+      <hr/>
+      <li ui-sref="buyerAdmin.address({state: 'management'})"><span>收货地址管理</span><span>></span></li>
+    </ul>
+  </div>
+</div>

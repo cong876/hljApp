@@ -1,0 +1,24 @@
+<div id="orderArea">
+  <div class="orderTabsArea" ng-if="$state.is('buyerAdmin.orders.list')">
+    <ul><li
+        ng-class="{'active': $stateParams.state==='waitOffer'}"
+        ng-click="changeTab('/buyer/orders/waitOffer')"
+        ><span>待报价</span>
+      </li><li
+        ng-class="{'active': $stateParams.state==='waitPay'}"
+        ng-click="changeTab('/buyer/orders/waitPay')"><span
+        ng-if="waitPayNumber" ng-bind="waitPayNumber" class="catchAttention"></span><span>待付款</span>
+      </li><li
+        ng-class="{'active': $stateParams.state==='waitDelivery'}"
+        ng-click="changeTab('/buyer/orders/waitDelivery')"><span>待发货</span>
+      </li><li
+        ng-class="{'active': $stateParams.state==='delivered'}"
+        ng-click="changeTab('/buyer/orders/delivered')"><span>已发货</span>
+      </li><li
+        ng-class="{'active':$stateParams.state==='completed'}"
+        ng-click="changeTab('/buyer/orders/completed')"><span>已完成</span>
+    </li></ul>
+  </div>
+  <div ng-class="{orderContainer: $state.is('buyerAdmin.orders.list')}" ui-view>
+  </div>
+</div>

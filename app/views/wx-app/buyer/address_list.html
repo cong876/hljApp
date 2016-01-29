@@ -1,0 +1,21 @@
+<ul>
+  <li class="address">
+    <section class="title"><span class="default obvious">[默认]</span>王聪 18810541172</section>
+    <section class="middle"><span>北京市 北京市 海淀区</span><span ng-if="state==='management'" class="icon-delete"></span><span ng-if="state==='list'" class="icon-check"></span></section>
+    <section>成府路五道口华清嘉园5号楼302室</section>
+  </li>
+  <li class="address">
+    <section class="title">王聪 18810541172</section>
+    <section class="middle"><span>北京市 北京市 海淀区</span><span ng-if="state==='management'" class="icon-delete"></span></section>
+    <section>成府路五道口华清嘉园5号楼302室</section>
+  </li>
+  <li class="address">
+    <section class="title">王聪 18810541172</section>
+    <section class="middle"><span>北京市 北京市 海淀区</span><span ng-if="state==='management'" class="icon-delete"></span></section>
+    <section>成府路五道口华清嘉园5号楼302室</section>
+  </li>
+</ul>
+<div class="btnArea fixbottom">
+  <div ng-if="state==='list'" ui-sref="buyerAdmin.address({state:'management'})" class="yeye_btn large_btn white_btn">管理收货地址</div>
+  <div ng-if="state==='management'" ui-sref="buyerAdmin.addressDetail" class="yeye_btn large_btn">添加新地址</div>
+</div>

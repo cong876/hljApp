@@ -1,0 +1,39 @@
+<div ui-view>
+  <ul>
+    <li class="order" ng-repeat="order in orders.list track by $index">
+      <div class="orderHead">
+        <div>
+          <section>
+            <span class="icon-order"></span><span ng-bind="order.country"></span><span class="orderState right" ng-bind="orders.state_name"></span>
+          </section>
+        </div>
+        <hr/>
+      </div>
+      <div class="orderContent" ui-sref="buyerAdmin.orders.list.detail({orderNumber: order.order_number})">
+        <div>
+          <over-view
+            title="{{order.title}}" number="{{order.number}}"
+            image="{{order.pic_url || hlj_url.defaultItemPic}}"
+            price="{{order.price}}">
+          </over-view>
+        </div>
+        <hr/>
+      </div>
+      <div class="orderFooter">
+        <div class="btnArea">
+          <div ng-if="(orders.state == 201) || (orders.state == 0)" class="yeye_btn rect_btn">取消订单</div>
+          <div class="yeye_btn rect_btn">联系客服</div>
+          <div ng-if="(orders.state == 301) || (orders.state == 601)" class="yeye_btn rect_btn">查看物流</div>
+          <div ng-if="orders.state == 201" ui-sref="buyerAdmin.orders.list.pay" class="yeye_btn rect_btn">立即付款</div>
+          <div ng-if="orders.state == 601" class="yeye_btn rect_btn">确认收货</div>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div ng-if="orders.list.length === 0 && !showLoading">
+    <div class="noOrderArea">
+      <img src="/image/wx-app/noOrderBg.png" alt=""/>
+    </div>
+    <activity-preview url="hlj_url.getActivityItems"></activity-preview>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="itemTitleArea">
+  <p>商品名称</p>
+  <p ng-bind="item.title"></p>
+</div>
+<div class="itemPictureArea">
+  <section ng-repeat="pictureUrl in pictures track by $index">
+    <div>
+      <div yeye-bg="pictureUrl" class="squareImage"></div>
+    </div>
+  </section>
+  <section class="left_fix"></section>
+  <section class="justify_fix"></section>
+</div>

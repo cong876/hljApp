@@ -1,0 +1,64 @@
+<div class="orderDetail" ui-view="">
+  <div class="stateArea">
+    <div class="box">
+      <div><span class="icon-order"></span></div>
+      <div>
+        <section>订单状态：<span class="obvious">已发货</span></section>
+        <section>买手：日本 陆同学</section>
+      </div>
+    </div>
+  </div>
+  <div class="logisticsArea">
+    <div class="box">
+      <div><span class="icon-delivered"></span></div>
+      <div>
+        <p>物流公司：EMS</p>
+        <p>物流单号：383453453</p>
+      </div>
+      <div><span>></span></div>
+    </div>
+  </div>
+  <div class="addressArea">
+    <div class="box">
+      <div><span class="icon-location2"></span></div>
+      <div>
+        <p>王聪 18810541172</p>
+        <p>北京市 北京市 海淀区</p>
+        <p>成府路五道口华清嘉园5号楼302室</p>
+      </div>
+    </div>
+  </div>
+  <div class="contentArea">
+    <div>
+      <over-view ui-sref="buyerAdmin.orders.list.detail.item" title="{{item.title}}" number="{{item.number}}" image="{{hlj_url.defaultItemPic}}"></over-view>
+    </div>
+    <hr/>
+    <div>
+      <over-view title="卡了比麦片800g" number="4" image="{{hlj_url.defaultItemPic}}"></over-view>
+    </div>
+    <hr/>
+    <div class="orderPriceArea">
+      <span>共2件</span>
+      <span class="right">合计：<b>￥200.00</b></span>
+    </div>
+    <div class="orderRefundArea">
+      <hr/>
+      <span class="icon-refund"> 查看退款</span>
+      <span class="right">></span>
+    </div>
+  </div>
+  <div class="timeArea">
+    <p>需求编号：YE14478889009889</p>
+    <p>提交时间：2015-12-04 18:13:53</p>
+    <p>报价时间：2015-12-04 18:13:53</p>
+  </div>
+  <div class="fixbottom">
+    <div class="btnArea">
+      <div ng-if="(orders.state == 201) || (orders.state == 0)" class="yeye_btn rect_btn">取消订单</div>
+      <div class="yeye_btn rect_btn">联系客服</div>
+      <div ng-if="(orders.state == 301) || (orders.state == 601)" class="yeye_btn rect_btn">查看物流</div>
+      <div ng-if="orders.state == 201" ui-sref="buyerAdmin.orders.list.pay" class="yeye_btn rect_btn">立即付款</div>
+      <div ng-if="orders.state == 601" class="yeye_btn rect_btn">确认收货</div>
+    </div>
+  </div>
+</div>

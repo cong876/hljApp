@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?7l22hj');
+    src:    url('fonts/icomoon.eot?7l22hj#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?7l22hj') format('truetype'),
+        url('fonts/icomoon.woff?7l22hj') format('woff'),
+        url('fonts/icomoon.svg?7l22hj#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tag-active:before {
+    content: "\e915";
+}
+.icon-user-active:before {
+    content: "\e900";
+}
+.icon-buypal:before {
+    content: "\e901";
+}
+.icon-buypal-active:before {
+    content: "\e912";
+}
+.icon-tag:before {
+    content: "\e913";
+}
+.icon-user:before {
+    content: "\e914";
+}
+.icon-location:before {
+    content: "\e90e";
+}
+.icon-tagT:before {
+    content: "\e90f";
+}
+.icon-gift:before {
+    content: "\e910";
+}
+.icon-success:before {
+    content: "\e911";
+}
+.icon-refund:before {
+    content: "\e904";
+}
+.icon-completed:before {
+    content: "\e905";
+}
+.icon-delivered:before {
+    content: "\e906";
+}
+.icon-location2:before {
+    content: "\e907";
+}
+.icon-order:before {
+    content: "\e908";
+}
+.icon-quertions:before {
+    content: "\e909";
+}
+.icon-waitDelivery:before {
+    content: "\e90a";
+}
+.icon-waitOffer:before {
+    content: "\e90b";
+}
+.icon-waitPay:before {
+    content: "\e90c";
+}
+.icon-buypalQ:before {
+    content: "\e90d";
+}
+.icon-check:before {
+    content: "\e903";
+}
+.icon-delete:before {
+    content: "\e902";
+}
+.icon-star-full:before {
+    content: "\e9d9";
+}
+.icon-radio-checked:before {
+    content: "\ea54";
+}
+.icon-radio-unchecked:before {
+    content: "\ea56";
+}
+

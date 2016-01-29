@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers/buyer_controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/controllers/main_controller.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/directives/component.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/scripts/routers.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/styles/style.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/address_detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/address_list.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/buyer_admin.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/buyer_profile.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/order_detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/order_item_detail.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/order_list.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/order_pay_detail.html" charset="UTF-8" />
+  </component>
+</project>

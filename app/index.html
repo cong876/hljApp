@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="csrf-token" content="test token" />
+    <title>红领巾小助手</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+  </head>
+  <body ng-controller="mainCtrl"
+        data-init='{"nickname": "王聪", "mobile": "18810541172", "email": "736044622@qq.com", "userType": 1, "headImageUrl": "./image/test3.jpg", "isNewbuyer": true}'>
+
+    <div id="loading" ng-show="showLoading">
+      <div class="spinner">
+      加载中...
+      </div>
+    </div>
+
+    <div class="header">
+    </div>
+
+    <div ui-view>
+      <span class="icon-user placeholder"></span>
+    </div>
+
+    <div class="footer fixbottom" ng-if="$state.is('dailyActivity') || $state.is('buypal') || $state.is('buyerAdmin')">
+      <nav><ul><li><span ng-class="{'icon-tag': !$state.includes('dailyActivity'), 'icon-tag-active': $state.includes('dailyActivity')}"></span><br/>今日团购</li><li ng-click="changeTab('/buypal')"><span ng-class="{'icon-buypal': !$state.includes('buypal'), 'icon-buypal-active': $state.includes('buypal')}"></span><br/>帮我代购</li><li ng-click="changeTab('/buyer')"><span ng-class="{'icon-user': !$state.includes('buyerAdmin'), 'icon-user-active': $state.includes('buyerAdmin')}"></span><br/>个人中心</li><li></li></ul></nav>
+    </div>
+
+    <div class="modal" ng-if="hljModal.showModal">
+      <div class="modalContent">
+        <p ng-repeat = "content in hljModal.content track by $index" ng-bind="content"></p>
+        <div class="btnArea">
+          <button ng-click="hljModal.close()">取消</button><button ng-click="hljModal.accept();hljModal.close()">确认</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src='bower_components/angular/angular.js'></script>
+    <script src='bower_components/angular-touch/angular-touch.js'></script>
+    <script src='bower_components/angular-ui-router/release/angular-ui-router.js'></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/modules/yeye_fn.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/services/modal_service.js"></script>
+        <script src="scripts/services/main_service.js"></script>
+        <script src="scripts/services/wx_service.js"></script>
+        <script src="scripts/directives/directive.js"></script>
+        <script src="scripts/directives/component.js"></script>
+        <script src="scripts/routers.js"></script>
+        <script src="scripts/controllers/main_controller.js"></script>
+        <script src="scripts/controllers/register_controller.js"></script>
+        <script src="scripts/controllers/buypal_controller.js"></script>
+        <script src="scripts/controllers/buyer_controller.js"></script>
+        <script src="scripts/services/buypal_service.js"></script>
+        <!-- endbuild -->
+      <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js"></' + 'script>')</script>
+
+</body>
+</html>

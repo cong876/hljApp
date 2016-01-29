@@ -1,0 +1,53 @@
+{
+	"item": {
+		"title": "卡乐比800g",
+		"price": 50.00,
+		"marketPrice": 100.00,
+		"description": "据说是世界上最好吃的麦片",
+		"id": 0,
+		"pic_url": "../../images/test.jpg"
+	},
+	"items": [
+		{
+			"title": "卡乐比800g",
+			"price": 50.00,
+			"marketPrice": 100.00,
+			"description": "据说是世界上最好吃的麦片",
+			"id": 1,
+			"pic_url": "../../images/test.jpg"
+		},{
+			"title": "一次最多十个字啊啊啊花王护手霜夜间版",
+			"price": 50.00,
+			"marketPrice": 100.00,
+			"description": "一次最多十个字啊啊啊花王护手霜夜间版",
+			"id": 2,
+			"pic_url": "../../images/test.jpg"
+		},{
+			"title": "卡乐比800g",
+			"price": 50.00,
+			"marketPrice": 100.00,
+			"description": "据说是世界上最好吃的麦片",
+			"id": 3,
+			"pic_url": "../../images/test.jpg"
+		},{
+			"title": "花王护手霜夜间版",
+			"price": 50.00,
+			"marketPrice": 100.00,
+			"description": "据说是世界上最好吃的麦片",
+			"id": 4,
+			"pic_url": "../../images/test.jpg"
+		}
+	],
+	"status": 1
+}
+// [
+// 	{
+// 		"title": "卡乐比麦片800g",
+// 		"pic_urls": ["1.jpg", "2.jpg"],
+// 		"number": 1
+// 	},{
+// 		"title": "卡乐比麦片800g",
+// 		"pic_urls": ["1.jpg", "2.jpg"],
+// 		"number": 2
+// 	}
+// ]
