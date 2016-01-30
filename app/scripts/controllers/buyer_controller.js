@@ -22,16 +22,6 @@ angular.module('hljApp')
   .controller('addressCtrl', ['$scope', '$stateParams',
     function($scope, $stateParams) {
       $scope.state = $stateParams.state;
-      function Address(name) {
-        this.name = name;
-        this.template = '<span>' + this.name + '</span>'
-      }
-      $scope.addresses = [
-        new Address('address1'),
-        new Address('address2'),
-        new Address('address3'),
-        new Address('address4')
-      ];
     }])
 
   .controller('addressDetailCtrl', ['$scope',

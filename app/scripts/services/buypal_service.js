@@ -35,6 +35,11 @@ angular.module('hljApp')
 
 		this.deleteItem = function(id) {
 			that.requirement.splice(id, 1);
+      console.log(that.requirement.length);
+      if (that.requirement.length === 0) {
+        console.log('back');
+        history.back();
+      }
 		};
 
 		this.editItem = function(id) {
