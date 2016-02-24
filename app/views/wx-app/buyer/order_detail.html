@@ -3,12 +3,12 @@
     <div class="box">
       <div><span class="icon-order"></span></div>
       <div>
-        <section>订单状态：<span class="obvious">已发货</span></section>
-        <section>买手：日本 陆同学</section>
+        <section>订单状态：<span class="obvious" ng-bind="orders.state_name"></span></section>
+        <section ng-show="orders.state == 301 || orders.state == 601">买手：{{order.country + " " + order.seller}}</section>
       </div>
     </div>
   </div>
-  <div class="logisticsArea">
+  <div class="logisticsArea" ng-show="orders.state == 301 || orders.state == 601" ui-sref="buyerAdmin.orders.list.detail.logistics">
     <div class="box">
       <div><span class="icon-delivered"></span></div>
       <div>
@@ -18,47 +18,48 @@
       <div><span>></span></div>
     </div>
   </div>
-  <div class="addressArea">
+  <div class="addressArea" ng-show="order.address">
     <div class="box">
       <div><span class="icon-location2"></span></div>
       <div>
-        <p>王聪 18810541172</p>
-        <p>北京市 北京市 海淀区</p>
-        <p>成府路五道口华清嘉园5号楼302室</p>
+        <p>{{order.address.receiver_name + " " + order.address.receiver_mobile}}</p>
+        <p>{{order.address.province.name + " " + order.address.city.name + " " + order.address.county.name}}</p>
+        <p>{{order.address.street_address}}</p>
       </div>
     </div>
   </div>
   <div class="contentArea">
-    <div>
-      <over-view ui-sref="buyerAdmin.orders.list.detail.item" title="{{item.title}}" number="{{item.number}}" image="{{hlj_url.defaultItemPic}}"></over-view>
+    <div ng-repeat="item in order.item track by $index">
+      <div>
+        <over-view ui-sref="buyerAdmin.orders.list.detail.item({index: $index})" title="{{substr(item.title,64)}}" number="{{item.number}}" image="{{item.pic_urls[0] ? item.pic_urls[0] : hlj_url.defaultItemPic}}"></over-view>
+      </div>
+      <hr/>
     </div>
-    <hr/>
-    <div>
-      <over-view title="卡了比麦片800g" number="4" image="{{hlj_url.defaultItemPic}}"></over-view>
-    </div>
-    <hr/>
     <div class="orderPriceArea">
-      <span>共2件</span>
-      <span class="right">合计：<b>￥200.00</b></span>
+      <span>共{{order.number}}件</span>
+      <span class="right">合计：<b yeye-price="order.price"></b></span>
     </div>
-    <div class="orderRefundArea">
+    <div class="orderRefundArea" ng-show="order.refund">
       <hr/>
       <span class="icon-refund"> 查看退款</span>
       <span class="right">></span>
     </div>
   </div>
   <div class="timeArea">
-    <p>需求编号：YE14478889009889</p>
-    <p>提交时间：2015-12-04 18:13:53</p>
-    <p>报价时间：2015-12-04 18:13:53</p>
+    <p>订单编号：{{order.order_number}}</p>
+    <p ng-if="order.create_time">提交时间：{{order.create_time}}</p>
+    <p ng-if="order.offer_time">报价时间：{{order.offer_time}}</p>
+    <p ng-if="order.payment_time">付款时间：{{order.payment_time}}</p>
+    <p ng-if="order.delivery_time">发货时间：{{order.delivery_time}}</p>
+    <p ng-if="order.complete_time">完成时间：{{order.complete_time}}</p>
   </div>
   <div class="fixbottom">
     <div class="btnArea">
-      <div ng-if="(orders.state == 201) || (orders.state == 0)" class="yeye_btn rect_btn">取消订单</div>
-      <div class="yeye_btn rect_btn">联系客服</div>
+      <div ng-if="(orders.state == 201) || (orders.state == 0)" ng-click="deleteOrder(order.order_number)" class="yeye_btn rect_btn">取消订单</div>
+      <div class="yeye_btn rect_btn" ng-click="callOperator(order.operatorMobile)">联系客服</div>
       <div ng-if="(orders.state == 301) || (orders.state == 601)" class="yeye_btn rect_btn">查看物流</div>
-      <div ng-if="orders.state == 201" ui-sref="buyerAdmin.orders.list.pay" class="yeye_btn rect_btn">立即付款</div>
-      <div ng-if="orders.state == 601" class="yeye_btn rect_btn">确认收货</div>
+      <div ng-if="orders.state == 201" ng-click="payNow(order.order_number)" class="yeye_btn rect_btn">立即付款</div>
+      <div ng-if="orders.state == 601" ng-click="sureToComplete(order.order_number)" class="yeye_btn rect_btn">确认收货</div>
     </div>
   </div>
 </div>

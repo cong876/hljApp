@@ -3,10 +3,10 @@
  */
 
 angular.module('hljApp')
-  .directive('overView', ['yeyeFn', overView])
+  .directive('overView', overView)
   .directive('activityPreview', ['yeyeFn', activityPreview]);
 
-function overView(yeyeFn) {
+function overView() {
   return {
     replace: true,
     restrict: 'E',
@@ -17,11 +17,9 @@ function overView(yeyeFn) {
               '</section>',
     scope: {
       image: '@image',
+      title: '@title',
       number: '@number',
       price: '@price'
-    },
-    link: function($scope, $element, attrs) {
-      $scope.title = yeyeFn.subStrByByte(attrs.title, 64);
     }
   }
 }

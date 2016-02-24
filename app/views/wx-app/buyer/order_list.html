@@ -12,7 +12,7 @@
       <div class="orderContent" ui-sref="buyerAdmin.orders.list.detail({orderNumber: order.order_number})">
         <div>
           <over-view
-            title="{{order.title}}" number="{{order.number}}"
+            title="{{substr(order.title,64)}}" number="{{order.number}}"
             image="{{order.pic_url || hlj_url.defaultItemPic}}"
             price="{{order.price}}">
           </over-view>
@@ -21,11 +21,11 @@
       </div>
       <div class="orderFooter">
         <div class="btnArea">
-          <div ng-if="(orders.state == 201) || (orders.state == 0)" class="yeye_btn rect_btn">取消订单</div>
-          <div class="yeye_btn rect_btn">联系客服</div>
+          <div ng-if="(orders.state == 201) || (orders.state == 0)" ng-click="deleteOrder(order.order_number)" class="yeye_btn rect_btn">取消订单</div>
+          <div class="yeye_btn rect_btn" ng-click="callOperator(order.operatorMobile)">联系客服</div>
           <div ng-if="(orders.state == 301) || (orders.state == 601)" class="yeye_btn rect_btn">查看物流</div>
-          <div ng-if="orders.state == 201" ui-sref="buyerAdmin.orders.list.pay" class="yeye_btn rect_btn">立即付款</div>
-          <div ng-if="orders.state == 601" class="yeye_btn rect_btn">确认收货</div>
+          <div ng-if="orders.state == 201" ng-click="payNow(order.order_number)" class="yeye_btn rect_btn">立即付款</div>
+          <div ng-if="orders.state == 601" ng-click="sureToComplete(order.order_number)" class="yeye_btn rect_btn">确认收货</div>
         </div>
       </div>
     </li>

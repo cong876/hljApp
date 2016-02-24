@@ -4,7 +4,7 @@ angular.module('hljApp')
 	.directive('yeyeBg', yeyeBg)																														//与square配合实现方图的输出，单独使用的话设置背景图片
 	.directive('yeyePrice', yeyePrice)																											//统一将价格精确到小数点后两位
   .directive('yeyeNumber', yeyeNumber)
-  .directive('yeyeCheck', yeyeCheck)																											//检测input元素是否符合ngPattern中的正则表达式，不符合呈现红框
+  //.directive('yeyeCheck', yeyeCheck)																											//检测input元素是否符合ngPattern中的正则表达式，不符合呈现红框
 	.directive('yeyeVerify', ['yeyeFn', 'hlj_url', yeyeVerify])															//检验验证码
 	.directive('yeyeCountdown', ['yeyeFn', 'hlj_url', 'isCountdown', yeyeCountdown])				//倒计时函数，自动解析倒计时时长和倒计时显示的文字
   .directive('yeyeTemplate', ['yeyeFn', yeyeTemplate]);
@@ -54,13 +54,14 @@ function yeyeBg() {
 
 function yeyePrice() {
 	return {
-		scope: {
-			yeyePrice: '='
-		},
 		template: '￥{{yeyePrice}}',
-		controller: function($scope, $element) {
-			$scope.yeyePrice = parseFloat($scope.yeyePrice).toFixed(2);
-		}
+    compile: function(element, attrs) {
+      return function($scope, $element, $attr) {
+        $scope.$watchCollection($attr.yeyePrice, function(collection) {
+          $scope.yeyePrice = parseFloat(collection).toFixed(2);
+        });
+      }
+    }
 	}
 }
 
@@ -88,27 +89,28 @@ function yeyeNumber() {
   }
 }
 
-function yeyeCheck() {
-	return {
-		link: function($scope, $element, attrs) {
-			$element.on('blur', function(event) {
-				event.preventDefault();
-				this.value = this.value.trim(this.value);
-				if (!attrs.ngPattern.test(this.value)) {
-					$element.addClass('error');
-				} else {
-					$element.removeClass('error');
-				}
-			});
-			$element.on('focus', function(event) {
-				event.preventDefault();
-				if ($element.hasClass('error')) {
-					$element.removeClass('error');
-				}
-			});
-		}
-	}
-}
+//function yeyeCheck() {
+//	return {
+//		link: function($scope, $element, attrs) {
+//      console.log('yeye-check');
+//			$element.on('blur', function(event) {
+//				event.preventDefault();
+//				this.value = this.value.trim(this.value);
+//				if (!attrs.ngPattern.test(this.value)) {
+//					$element.addClass('error');
+//				} else {
+//					$element.removeClass('error');
+//				}
+//			});
+//			$element.on('focus', function(event) {
+//				event.preventDefault();
+//				if ($element.hasClass('error')) {
+//					$element.removeClass('error');
+//				}
+//			});
+//		}
+//	}
+//}
 
 function yeyeVerify(yeyeFn, hlj_url) {
   return {
@@ -145,12 +147,16 @@ function yeyeCountdown(yeyeFn, hlj_url, isCountdown) {
 	return {
 		scope: {
 			isDisabled: '=ngDisabled',
-			mobile: '=ngModal',
+			mobile: '=ngModel',
 			zone: '=yeyeZone'
 		},
 		link: function($scope, $element, attrs) {
 
-			$element.on('click', function(event){
+      $scope.$on("$destroy", function(event) {
+        isCountdown.register = false;
+      });
+
+			$element.on('click', function(event) {
 
 				event.preventDefault();
 				event.stopPropagation();
@@ -179,7 +185,7 @@ function yeyeCountdown(yeyeFn, hlj_url, isCountdown) {
 						isCountdown.register = false;
 					}, parseInt(countdownText.match(/[0-9]{1,}/)[0]*1000));
 
-					if (attrs.ngModal) {
+					if (attrs.ngModel) {
 						var data = {
 							mobile: yeyeFn.trim($scope.mobile),
 							zone: yeyeFn.trim($scope.zone)

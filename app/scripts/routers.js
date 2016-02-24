@@ -42,16 +42,12 @@ angular.module('hljApp')
 					templateUrl: 'views/wx-app/buypal/reward.html?' + + new Date(),
 					controller: 'rewardCtrl'
 				})
-				.state('buypal.preventClose', {
-					url: '/preventClose',
-					templateUrl: 'views/wx-app/buypal/item_list.html?' + + new Date(),
-					controller: 'preventCloseCtrl'
-				})
 				.state('buypal.submitted', {
 					url: '/submitted',
 					templateUrl: 'views/wx-app/buypal/submitted.html?' + + new Date(),
 					controller: 'submittedCtrl'
 				})
+
 
         .state('buyerAdmin', {                                                         //page buyer admin
           url: '/buyer',
@@ -64,13 +60,18 @@ angular.module('hljApp')
           controller: 'buyerProfileCtrl'
         })
 
-        .state('buyerAdmin.address', {
-        	url: '/address/{state: /|list|management|/}',
+        .state('buyerAdmin.addressChoose', {
+        	url: '/addressChoose',
         	templateUrl: 'views/wx-app/buyer/address_list.html?' + + new Date(),
-        	controller: 'addressCtrl'
+        	controller: 'addressChooseCtrl'
+        })
+        .state('buyerAdmin.addressManagement', {
+          url: '/addressManagement',
+          templateUrl: 'views/wx-app/buyer/address_list.html?' + + new Date(),
+          controller: 'addressManagementCtrl'
         })
         .state('buyerAdmin.addressDetail', {
-          url: '/addressDetail',
+          url: '/addressDetail/:addressId',
           templateUrl: 'views/wx-app/buyer/address_detail.html?' + + new Date(),
           controller: 'addressDetailCtrl'
         })
@@ -96,9 +97,21 @@ angular.module('hljApp')
           controller: 'orderDetailCtrl'
         })
         .state('buyerAdmin.orders.list.detail.item', {
-          url: '/item',
+          url: '/item/:index',
           templateUrl: 'views/wx-app/buyer/order_item_detail.html?' + + new Date(),
           controller: 'orderItemDetailCtrl'
+        })
+        .state('buyerAdmin.orders.list.detail.logistics', {
+          url: '/logistics',
+          templateUrl: 'views/wx-app/buyer/logistics_detail.html?' + + new Date(),
+          controller: 'logisticsCtrl'
+        })
+
+
+        .state('periodActivity', {
+          url: '/periodActivity',
+          templateUrl: 'views/wx-app/activity/period_activity.html?' + + new Date(),
+          controller: 'periodActivityCtrl'
         });
 
 	}]);

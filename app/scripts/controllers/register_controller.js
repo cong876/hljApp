@@ -1,7 +1,6 @@
-'use strict';
-/*
- * Ctrollers for page register
-*/
+/**
+ * controllers for page register
+ */
 
 angular.module('hljApp')
 

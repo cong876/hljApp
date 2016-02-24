@@ -1,9 +1,9 @@
 <div class="itemTitleArea">
   <p>商品名称</p>
-  <p ng-bind="item.title"></p>
+  <p ng-bind="order.item[index].title"></p>
 </div>
 <div class="itemPictureArea">
-  <section ng-repeat="pictureUrl in pictures track by $index">
+  <section ng-repeat="pictureUrl in order.item[index].pic_urls track by $index" ng-click="previewImage($index, order.item[index].pic_urls)">
     <div>
       <div yeye-bg="pictureUrl" class="squareImage"></div>
     </div>

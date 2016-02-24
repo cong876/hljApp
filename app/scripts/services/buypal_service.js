@@ -13,10 +13,15 @@ angular.module('hljApp')
 		this.reward = {};																																						//防止购买奖品时从注册页回来会丢失数据
 		this.isGetReward = false;
 
-		this.saveItem = function(item,id) {
-			id = parseInt(id.itemId);
-			id = id < 0 ? that.requirement.push(item) : that.requirement.splice(id, 1, item);					//id为-1时表示添加一个商品
-			$location.path('buypal/list').replace();
+		this.saveItem = function(item, index) {
+			var id = parseInt(index.itemId);
+			id < 0 ? that.requirement.push(item) : that.requirement.splice(id, 1, item);					    //id为-1时表示添加一个商品
+
+      if (that.requirement.length === 1 && id === -1) {                                         //添加第一个商品时转到list页
+        $location.path('buypal/list').replace();
+      } else {
+        history.back();
+      }
 		};
 
 		this.getItem = function(id) {
@@ -29,15 +34,13 @@ angular.module('hljApp')
 			return itemIndex;
 		};
 
-		this.getRequirement = function(a) {
+		this.getRequirement = function() {
 			return that.requirement
 		};
 
 		this.deleteItem = function(id) {
 			that.requirement.splice(id, 1);
-      console.log(that.requirement.length);
       if (that.requirement.length === 0) {
-        console.log('back');
         history.back();
       }
 		};

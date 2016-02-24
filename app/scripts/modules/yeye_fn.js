@@ -4,7 +4,7 @@
 	'use strict';
 
 	angular.module('yeyeFn',[])
-		.provider('yeyeFn', yeyeFnProvider);																											//一些比较通用的函数
+		.provider('yeyeFn', yeyeFnProvider);																										//一些比较通用的函数
 
 	function yeyeFnProvider() {
 		this.$get = function($location, $http, $q, $rootScope){																	//将服务注册到provider上
@@ -26,7 +26,6 @@
 					method: method,
 					url: url
 				};
-				console.log(data);
 				if (data) {
 					if (method === 'POST') {
 						req.data = data;
@@ -87,6 +86,9 @@
 				getUser: function() {
 					return that.user;
 				},
+        updateUser: function(data) {
+          angular.extend(that.user, data);
+        },
 				register: function(user, url) {
 					yeyeReq(true, true, 'POST', url, user).then(function(res) {
 						user.mobile = _deal.trim(user.mobile);
@@ -102,7 +104,7 @@
 			var _deal = {
 				loaded: loaded,
 				trim: function(a) {
-					if((typeof a) === "number"){
+					if ((typeof a) === "number") {
 						a = a.toString();
 					}
 					return a.split(" ").join("");
@@ -110,13 +112,13 @@
 				subStrByByte: function(str, limit) {
 				  var newStr="";
 				  var len=0;
-				  for(var i=0; i<str.length; i++){
-				      if((/[^\x00-\xff]/g).test(str[i])){
+				  for (var i=0; i<str.length; i++) {
+				      if ((/[^\x00-\xff]/g).test(str[i])) {
 				          len +=2;
-				      }else{
+				      } else {
 				          len +=1;
 				      }
-				      if(len>limit){
+				      if (len>limit) {
 				          newStr=str.substr(0,i);
 				          return newStr + "...";
 				      }
@@ -124,6 +126,7 @@
 				  return str;
 				}
 			};
+
 			angular.extend(service, _user, _deal);
 
 			return service;

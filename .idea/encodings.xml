@@ -14,5 +14,6 @@
     <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/order_item_detail.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/order_list.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/wx-app/buyer/order_pay_detail.html" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

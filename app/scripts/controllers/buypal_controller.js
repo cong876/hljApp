@@ -7,10 +7,13 @@
 
 angular.module('hljApp')
   .controller('buypalCtrl', ['$scope', 'buypalService', function($scope, buypalService) {
-      $scope.requirement = buypalService.getRequirement();
+
+    $scope.requirement = buypalService.getRequirement();
+
   }])
-  .controller('itemListCtrl', ['$scope', 'buypalService', '$location', 'yeyeFn', '$timeout',
-    function($scope, buypalService, $location, yeyeFn, $timeout) {
+
+  .controller('itemListCtrl', ['$scope', 'buypalService', '$timeout',
+    function($scope, buypalService, $timeout) {
 
       function calculateTotal() {
         $scope.totalNumber = $scope.requirement.length>0 ? $scope.requirement.map(function(x) {
@@ -23,8 +26,6 @@ angular.module('hljApp')
       $scope.requirement = buypalService.getRequirement();
 
       calculateTotal();
-
-      $scope.substr = yeyeFn.subStrByByte;
 
       $scope.deleteItem = function(id) {
         buypalService.deleteItem(id);
@@ -39,46 +40,32 @@ angular.module('hljApp')
 
     }])
 
-	.controller('itemDetailCtrl', ['$scope', '$stateParams', 'buypalService', 'isFirstIn',
-		function($scope, $stateParams, buypalService, isFirstIn) {
+	.controller('itemDetailCtrl', ['$scope', '$stateParams', 'buypalService',
+		function($scope, $stateParams, buypalService) {
 
-		$scope.item = buypalService.getItem($stateParams.itemId);
+      $scope.item = buypalService.getItem($stateParams.itemId);
 
-		$scope.addPicture = function(event, item){
-			buypalService.addPicture(event, item, $scope);
-		};
-		$scope.previewPicture = buypalService.previewPicture;
-		$scope.deletePicture = buypalService.deletePicture;
-		$scope.saveItem = buypalService.saveItem;
-
-	}])
-
-	.controller('preventCloseCtrl', ['$scope', 'buypalService', 'publicService',
-		function($scope, buypalService, publicService) {
-
-		$scope.requirement = buypalService.getRequirement();
-		$scope.showModal = true;
-
-		$scope.closeWindow = publicService.closeWindow;
+      $scope.addPicture = function(event, item){
+        buypalService.addPicture(event, item, $scope);
+      };
+      $scope.previewPicture = buypalService.previewPicture;
+      $scope.deletePicture = buypalService.deletePicture;
+      $scope.saveItem = buypalService.saveItem;
 
 	}])
 
-	.controller('rewardCtrl', ['$scope', 'buypalService', 'isFirstIn',
-		function($scope, buypalService, isFirstIn) {
+	.controller('rewardCtrl', ['$scope', 'buypalService',
+		function($scope, buypalService) {
 
-		buypalService.initReward($scope);
+      buypalService.initReward($scope);
 
-		$scope.getReward = function() {
-			buypalService.getReward($scope);
-		};
-		$scope.buyReward = buypalService.buyReward;
+      $scope.getReward = function() {
+        buypalService.getReward($scope);
+      };
+      $scope.buyReward = buypalService.buyReward;
 
 	}])
 
-	.controller('submittedCtrl', ['$scope', 'buypalService', 'yeyeFn',
-		function($scope, buypalService, yeyeFn) {
+	.controller('submittedCtrl', ['$scope',function($scope) {
 
-		//buypalService.getActivityItems($scope);
-		//$scope.goActivity = buypalService.goActivity;
-
-	}]);
+  }]);

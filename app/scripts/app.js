@@ -24,11 +24,26 @@ var TEST_URL = {
 	getRewardItem: '/buyPal/getLuckyBagItem',
 	buyRewardItem: '/pass',
 
+  getCities: '/getCities',
+  getCounties: '/getCounties',
+  getAddresses: '/getAddresses',
+
+  createAddress: '/createAddress',
+  updateAddress: '/updateAddress',
+  deleteAddress: '/pass',
+  updateMobile: '/pass',
+  updateEmail: '/pass',
+
+  orders: '/orders',
   ordersWaitOffer: '/noOrder',
   ordersWaitPay: '/orders',
   ordersWaitDelivery: '/ordersWaitDelivery',
   ordersDelivered: '/orders',
-  ordersCompleted: '/orders'
+  ordersCompleted: '/orders',
+
+  orderDetail: '/orderDetail',
+  deleteOrder: '/pass',
+  sureToComplete: '/pass'
 };
 
 var GLOBAL_URL = {
@@ -85,33 +100,60 @@ angular
 			$rootScope.hlj_url = hlj_url;
 
 	    $rootScope.$on('$locationChangeStart', locationChangeStart);
+      $rootScope.$on('$locationChangeSuccess', locationChangeSuccess);
 
 	    function locationChangeStart(event, newUrl, currentUrl) {
 	    	var newPath = newUrl.split("#")[1];
 	    	var currentPath = currentUrl.split("#")[1];
-				var isEmptyRequire = buypalService.getRequirement().length === 0;
+				var isEmptyRequirement = buypalService.getRequirement().length === 0;
 
-    		if (newPath === '/buypal' && currentPath === '/buypal/list' && !isEmptyRequire && !$rootScope.hljModal.showModal) {
+        /**
+         * 判断从需求列表页回退时,有商品时,是否要清空
+         */
+    		if (newPath === '/buypal' && currentPath === '/buypal/list' && !isEmptyRequirement && !$rootScope.hljModal.showModal) {
     			event.preventDefault();
-    			modalService.open(['已添加的商品将被删除，', '确认返回？'], function() {
+    			modalService.open("<p>已添加的商品将被删除，</p><p>确认返回？</p>", function() {
     				buypalService.requirement = [];
     				history.back();
     			});
     			return false;
     		}
-	    	if (newUrl.match("bottomState") && (currentUrl.match('buypal') || currentUrl.match('dailyActivity') || currentUrl.match('buyer'))) {
+
+        /**
+         * 判断当用户从帮我代购退出浏览器时,是否展示福袋,以及当从非主tab回退时,返回上一级
+         */
+	    	if (newUrl.match("bottomState")) {
 	    		event.preventDefault();
+          var getCurrentPath = currentPath.split("/");
+          if (currentUrl.match('buypal') && yeyeFn.getUser().isNewbuyer && !isFirstIn.showReward) {
+            $location.path('/buypal/reward').replace();
+            return false;
+          }
+
+          if (getCurrentPath.length > 2) {
+            var guidePath = getCurrentPath.slice(0, getCurrentPath.length-2).join('/');             //退到当前的上一级
+            $location.path(guidePath);
+            return false;
+          }
 	    		closeWindow();
 	    	}
 	    }
 
+      function locationChangeSuccess(event, newUrl, currentUrl) {
+        var newPath = newUrl.split("#")[1];
+        var currentPath = currentUrl.split("#")[1];
+
+        if ($rootScope.hljModal.showModal) {
+          $rootScope.hljModal.showModal = false
+        }
+
+        if (newPath === '/buypal' && currentPath === '/buypal/list') {              //回退成功时清空报价
+          buypalService.requirement = [];
+        }
+      }
+
 	    function closeWindow() {
-	    	buypalService.requirement = [];
-	    	if (yeyeFn.getUser().isNewbuyer && !isFirstIn.showReward) {
-	    		$location.path('/buypal/reward').replace();
-	    		return false;
-	    	}
-	    	wxService.close();
+	    	wxService.close();                                                          //调用微信接口关闭窗口
 	    }
 
 		}]);

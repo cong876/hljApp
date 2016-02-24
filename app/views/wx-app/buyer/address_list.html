@@ -1,21 +1,17 @@
 <ul>
-  <li class="address">
-    <section class="title"><span class="default obvious">[默认]</span>王聪 18810541172</section>
-    <section class="middle"><span>北京市 北京市 海淀区</span><span ng-if="state==='management'" class="icon-delete"></span><span ng-if="state==='list'" class="icon-check"></span></section>
-    <section>成府路五道口华清嘉园5号楼302室</section>
-  </li>
-  <li class="address">
-    <section class="title">王聪 18810541172</section>
-    <section class="middle"><span>北京市 北京市 海淀区</span><span ng-if="state==='management'" class="icon-delete"></span></section>
-    <section>成府路五道口华清嘉园5号楼302室</section>
-  </li>
-  <li class="address">
-    <section class="title">王聪 18810541172</section>
-    <section class="middle"><span>北京市 北京市 海淀区</span><span ng-if="state==='management'" class="icon-delete"></span></section>
-    <section>成府路五道口华清嘉园5号楼302室</section>
+  <li class="address" ng-repeat="address in addresses.list track by $index" ng-click="checkAddress($index)">
+    <section class="title"><span ng-if="address.is_default" class="obvious">[默认] </span>{{address.receiver_name}} {{address.receiver_mobile}}</section>
+    <section class="middle"><span>{{address.province.name + " " + address.city.name + " " + address.county.name}}</span>
+      <span ng-if="state==='management'" ng-click="stop($event);deleteAddress(address, $index)" class="icon-delete"></span>
+      <span ng-if="state==='choose'&&chose.address==address" class="icon-check"></span>
+    </section>
+    <section ng-bind="substr(address.street_address, 48)"></section>
   </li>
 </ul>
-<div class="btnArea fixbottom">
-  <div ng-if="state==='list'" ui-sref="buyerAdmin.address({state:'management'})" class="yeye_btn large_btn">管理收货地址</div>
-  <div ng-if="state==='management'" ui-sref="buyerAdmin.addressDetail" class="yeye_btn large_btn">添加新地址</div>
+<div ng-if="addresses.list.length === 0" class="noAddress">
+  <div><span class="icon-location"></span></div>
+  <div>暂无收货地址</div>
+</div>
+<div class="btnArea fixbottom" ng-class="{'noAddressBtn': addresses.list.length ===0}">
+  <div ng-click="dealAddress()" ng-bind="dealer" class="yeye_btn large_btn"></div>
 </div>

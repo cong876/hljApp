@@ -23,10 +23,12 @@ angular.module('hljApp')
 		};
 
 		this.close = function() {
+      console.log('close by weixin');
 			// wx.closeWindow();
 		};
 
 		this.uploadImage = function(item, $scope) {
+      console.log('uploadImage by weixin');
 			// wx.chooseImage({
 			// 	count: 6-item.pic_urls.length,
 		  //   sizeType: ['original', 'compressed'],
@@ -38,12 +40,13 @@ angular.module('hljApp')
 		  //   	syncUpload(localIds, item);
 		  //   }
 			// })
-		}
+		};
 
-		this.previewImage = function(index, item) {
+		this.previewImage = function(index, urls) {
+      console.log('previewImage by weixin', index, urls);
 			// wx.previewImage({
 			// 	current: item.localId[index],
-			// 	urls: item.localId
+			// 	urls: urls
 			// })
 		}
 
