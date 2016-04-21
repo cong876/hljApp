@@ -1,9 +1,12 @@
 <div class="itemTitleArea">
-  <p>商品名称</p>
-  <p ng-bind="order.item[index].title"></p>
+  <p><b>商品{{orders.state==0 ? '信息' : '名称'}}</b></p>
+  <p ng-bind="items[index].title"></p>
+  <p ng-show="order.memo" class="placeholder">z</p>
+  <p ng-show="order.memo"><b>备注</b></p>
+  <p ng-bind="order.memo">这里是备注</p>
 </div>
 <div class="itemPictureArea">
-  <section ng-repeat="pictureUrl in order.item[index].pic_urls track by $index" ng-click="previewImage($index, order.item[index].pic_urls)">
+  <section ng-repeat="pictureUrl in items[index].pic_urls track by $index" ng-click="previewImage($index, items[index].pic_urls)">
     <div>
       <div yeye-bg="pictureUrl" class="squareImage"></div>
     </div>

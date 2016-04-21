@@ -182,47 +182,9 @@ app.get('/noOrder', function(req, res) {
 });
 
 app.get('/orders', function(req, res) {
-  res.json({
-    data: [
-      {
-        "title": "卡乐比800g",
-        "number": 2,
-        "price": 50.00,
-        "country": "韩国",
-        "id": 1,
-        "order_number": "YE12348743012",
-        "pic_url": "",
-        operatorMobile: 18810541172
-      },{
-        "title": "一次最多十个字啊啊啊花王护手霜夜间版一次最多十个字啊啊啊花王护手霜夜间版一次最多十个字啊啊啊花王护手霜夜间版一次最多十个字啊啊啊花王护手霜夜间版",
-        "number": 3,
-        "price": 250.00,
-        "country": "香港",
-        "id": 2,
-        "order_number": "YE13438592345",
-        "pic_url": "./image/test.jpg",
-        operatorMobile: 18810541173
-      },{
-        "title": "花王护手霜夜间版",
-        "number": 4,
-        "price": 150.00,
-        "country": "日本",
-        "id": 3,
-        "order_number": "YE12341431234",
-        "pic_url": "./image/test.jpg",
-        operatorMobile: 18810541174
-      },{
-        "title": "花王护手霜夜间版",
-        "number": 4,
-        "price": 150.00,
-        "country": "日本",
-        "id": 3,
-        "order_number": "YE12341431234",
-        "pic_url": "./image/test.jpg",
-        operatorMobile: 18810541174
-      }
-    ]
-  })
+  res.json(
+  {"data":[{"id":4466,"title":"\u6d4b\u8bd5;","number":1,"requirementNumber":"YQ14563078874243","pic_url":"http:\/\/7xljye.com1.z0.glb.clouddn.com\/aUM_83kvGDDOjwLjLkGwYdQ_AMBPGW2E9nBeLrzKeIDWOUy2O-sGgYTmHJGFHzKr.jpg","operatorMobile":"18667175106","details":[{"title":"\u6d4b\u8bd5","pic_urls":["http:\/\/7xljye.com1.z0.glb.clouddn.com\/aUM_83kvGDDOjwLjLkGwYdQ_AMBPGW2E9nBeLrzKeIDWOUy2O-sGgYTmHJGFHzKr.jpg"],"number":1}],"submit_time":"2016-02-24 17:58:07"},{"id":4470,"title":"\u6d4b\u8bd5\u4e24\u4e2a\u9700\u6c42\uff0c\u7b2c\u4e00\u4e2a\u65e0\u56fe;\u6709\u56fe;","number":2,"requirementNumber":"YQ14563088901399","pic_url":"http:\/\/7xljye.com1.z0.glb.clouddn.com\/SffGv7iytnl9flyNpHMVnMI4guvFm2i8c3FXUSAR3Ts8Z1hrcnJnm0dpJkSd8VPN.jpg","operatorMobile":"18701133614","details":[{"title":"\u6d4b\u8bd5\u4e24\u4e2a\u9700\u6c42\uff0c\u7b2c\u4e00\u4e2a\u65e0\u56fe","pic_urls":[],"number":1},{"title":"\u6709\u56fe","pic_urls":["http:\/\/7xljye.com1.z0.glb.clouddn.com\/SffGv7iytnl9flyNpHMVnMI4guvFm2i8c3FXUSAR3Ts8Z1hrcnJnm0dpJkSd8VPN.jpg"],"number":1}],"submit_time":"2016-02-24 18:14:50"}]}
+  )
 });
 
 app.get('/ordersWaitDelivery', function(req, res) {

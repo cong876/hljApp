@@ -3,13 +3,12 @@ angular.module('hljApp')
 	.directive('yeyePrevent', yeyePrevent)																									//阻止点击事件的冒泡，防止手机端点击时出现闪的情况
 	.directive('yeyeBg', yeyeBg)																														//与square配合实现方图的输出，单独使用的话设置背景图片
 	.directive('yeyePrice', yeyePrice)																											//统一将价格精确到小数点后两位
-  .directive('yeyeNumber', yeyeNumber)
-  //.directive('yeyeCheck', yeyeCheck)																											//检测input元素是否符合ngPattern中的正则表达式，不符合呈现红框
+  .directive('yeyeNumber', yeyeNumber)                                                    //用于加减数量
 	.directive('yeyeVerify', ['yeyeFn', 'hlj_url', yeyeVerify])															//检验验证码
 	.directive('yeyeCountdown', ['yeyeFn', 'hlj_url', 'isCountdown', yeyeCountdown])				//倒计时函数，自动解析倒计时时长和倒计时显示的文字
-  .directive('yeyeTemplate', ['yeyeFn', yeyeTemplate]);
+  .directive('yeyeCarousel', ['$interval', '$state', yeyeCarousel]);
 
-function getFieldValue(scope, key, callback) {                                            //获取key所在的scope，并执行回调
+function getFieldValue(scope, key, callback) {                                            //获取特定key所在的scope，并执行回调
   if (scope[key]) {
     return callback(scope.$parent);
   }  else if (scope.$parent) {
@@ -54,11 +53,10 @@ function yeyeBg() {
 
 function yeyePrice() {
 	return {
-		template: '￥{{yeyePrice}}',
     compile: function(element, attrs) {
       return function($scope, $element, $attr) {
         $scope.$watchCollection($attr.yeyePrice, function(collection) {
-          $scope.yeyePrice = parseFloat(collection).toFixed(2);
+          $element.text("￥" + parseFloat(collection).toFixed(2));												//不使用template是防止一个scope中两次使用此指令，导致数据重叠
         });
       }
     }
@@ -89,29 +87,6 @@ function yeyeNumber() {
   }
 }
 
-//function yeyeCheck() {
-//	return {
-//		link: function($scope, $element, attrs) {
-//      console.log('yeye-check');
-//			$element.on('blur', function(event) {
-//				event.preventDefault();
-//				this.value = this.value.trim(this.value);
-//				if (!attrs.ngPattern.test(this.value)) {
-//					$element.addClass('error');
-//				} else {
-//					$element.removeClass('error');
-//				}
-//			});
-//			$element.on('focus', function(event) {
-//				event.preventDefault();
-//				if ($element.hasClass('error')) {
-//					$element.removeClass('error');
-//				}
-//			});
-//		}
-//	}
-//}
-
 function yeyeVerify(yeyeFn, hlj_url) {
   return {
     require: 'ngModel',
@@ -121,23 +96,25 @@ function yeyeVerify(yeyeFn, hlj_url) {
       code: '=ngModel'
     },
     link: function($scope, $element, attrs, c) {
-      $element.on('change', function(event) {
+      $element.on('input', function(event) {
         event.preventDefault();
-        c.$setValidity("yeyeVerify", undefined);
-        var data = {
-          zone: yeyeFn.trim($scope.zone),
-          mobile: yeyeFn.trim($scope.mobile),
-          verifyCode: yeyeFn.trim($scope.code)
-        };
-        yeyeFn.yeyeReq(false, false, 'GET', hlj_url.verifyCode, data)
-          .then(function(res) {
-            if (res.status_code == 200) {
-              c.$setValidity("yeyeVerify", true);
-            } else {
-              c.$setValidity("yeyeVerify", false);
-              alert(res.message);
-            }
-          });
+        if ($element.val().length >= 6) {
+          c.$setValidity("yeyeVerify", undefined);
+          var data = {
+            zone: yeyeFn.trim($scope.zone),
+            mobile: yeyeFn.trim($scope.mobile),
+            verifyCode: yeyeFn.trim($scope.code)
+          };
+          yeyeFn.yeyeReq(false, false, 'GET', hlj_url.verifyCode, data)
+            .then(function (res) {
+              if (res.status_code == 200) {
+                c.$setValidity("yeyeVerify", true);
+              } else {
+                c.$setValidity("yeyeVerify", false);
+                alert(res.message);
+              }
+            });
+        }
       });
     }
   }
@@ -248,14 +225,90 @@ function countdownEnd(element, textOld, countdown) {
 	clearInterval(countdown);
 }
 
-function yeyeTemplate() {
+
+function yeyeCarousel($interval,$state) {
   return {
-    scope:{
-      template: '=yeyeTemplate'
+    scope: {
+      pictures: "=yeyeCarousel",
+      interval: "=yeyeInterval",
+      targets: "=yeyeTargets"
     },
+    template: '<div class="carouselOuter"><ul><li><div class="rectImage"></div></li><li><div class="rectImage"></div></li><li><div class="rectImage"></div></li></ul></div>',
     link: function($scope, $element, attrs) {
-      $element.append($scope.template);
+
+      var pictures = $scope.pictures;
+      var targets = $scope.targets;
+      var ul = $element.children().children().eq(0);
+      var index = 0;
+
+
+      function setPicture(i) {
+        var li = ul.children();
+        if (pictures.length>1) {
+          var next = i+1 == pictures.length ? 0 : i+1;
+          var pre = i-1 == -1 ? pictures.length-1 : i-1;
+
+          li.eq(0).children().css({backgroundImage: "url(" + pictures[pre] + ")"});
+          li.eq(1).children().css({backgroundImage: "url(" + pictures[i] + ")"});
+          li.eq(2).children().css({backgroundImage: "url(" + pictures[next] + ")"});
+        } else {
+          li.eq(1).children().css({backgroundImage: "url(" + pictures[0] + ")"});
+        }
+      }
+
+      function toNext() {
+        var li = ul.children();
+        li.eq(1).css({"-webkit-transform": "translate3d(-100%, 0, 0)", "transform": "translate3d(-100%, 0, 0)"});
+        li.eq(2).css({"-webkit-transform": "translate3d(0, 0, 0)", "transform": "translate3d(0, 0, 0)"});
+        li.eq(0).remove();
+        ul.append('<li><div class="rectImage"></div></li>');
+        $element.children().children().eq(1).children().eq(index).removeClass("active");
+        index = index + 1==pictures.length ? 0 : index + 1;
+        $element.children().children().eq(1).children().eq(index).addClass("active");
+        $interval(function() {
+          setPicture(index);
+        }, 450, 1);
+      }
+
+      function toPer(prePre) {
+        var li = ul.children();
+        li.eq(1).css({"-webkit-transform": "translate3d(100%, 0, 0)", "transform": "translate3d(100%, 0, 0)"});
+        li.eq(0).css({"-webkit-transform": "translate3d(0, 0, 0)", "transform": "translate3d(0, 0, 0)"});
+        li.eq(3).remove();
+        ul.prepend('<li><div class="rectImage" ></div></li>');
+        index = index -1 == -1 ? pictures.length-1 : index -1;
+        setPicture(index);
+      }
+
+      $element.on("click", function() {
+        var state = targets[index].state;
+        var id = targets[index].id;
+        $state.go(state, {id: id});
+
+        toTalkingData({event: "周期团购", area: "banner区块-点击主题性活动", kv: {activity_title: targets[index].title, activity_id: id.toString()}, user: true})
+      });
+
+      setPicture(0);
+
+      if (pictures.length>1) {
+
+        var carouselMark = '<div class="carouselMark">';
+        for (var i = 0; i < pictures.length; i++) {
+          carouselMark +='<a>●</a>';
+        }
+        carouselMark += '</div>';
+        $element.children().append(carouselMark);
+
+        $element.children().children().eq(1).children().eq(index).addClass("active");
+        var carousel = $interval(function() {
+          toNext();
+        }, parseInt($scope.interval));
+
+        $scope.$on("$destroy", function() {
+          $interval.cancel(carousel);
+        })
+
+      }
     }
   }
 }
-

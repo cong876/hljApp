@@ -10,6 +10,7 @@ angular.module('hljApp')
 
     $scope.requirement = buypalService.getRequirement();
 
+    toTalkingData({event: "帮我代购PV", area: "", kv: {}, user: true, time: true})
   }])
 
   .controller('itemListCtrl', ['$scope', 'buypalService', '$timeout',
@@ -52,6 +53,11 @@ angular.module('hljApp')
       $scope.deletePicture = buypalService.deletePicture;
       $scope.saveItem = buypalService.saveItem;
 
+      if ($stateParams.itemId == -2) {
+        toTalkingData({event: "帮我代购", area: "空列表区块-点击添加", kv: {}, time: true, user: true});
+      } else if ($stateParams.itemId == -1) {
+        toTalkingData({event: "帮我代购", area: "列表区块-点击添加", kv: {}, time: true, user: true});
+      }
 	}])
 
 	.controller('rewardCtrl', ['$scope', 'buypalService',

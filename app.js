@@ -131,14 +131,10 @@ angular
             return false;
           }
 
-          var guidePath;
-          if (getCurrentPath.length > 3) {
-            guidePath = getCurrentPath.slice(0, getCurrentPath.length - 2).join('/');             //退到当前的上一级
+          if (getCurrentPath.length > 2) {
+            var guidePath = getCurrentPath.slice(0, getCurrentPath.length - 2).join('/');             //退到当前的上一级
             $location.path(guidePath);
             return false;
-          } else if (getCurrentPath.length == 3) {
-						$state.go('periodActivity');
-						return false;
           }
           closeWindow();
         }

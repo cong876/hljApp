@@ -27,7 +27,7 @@
 					url: url
 				};
 				if (data) {
-					if (method === 'POST') {
+					if (method === 'POST' || method === 'PUT') {
 						req.data = data;
 					} else {
 						var para = '?';
@@ -40,9 +40,9 @@
 					}
 				}
 
-				if (method === 'POST') {																														//为post请求注入x-csrf-token
-					req.headers = {'X-CSRF-TOKEN': document.querySelector("meta[name=csrf-token]").content};
-				}
+				// if (method === 'POST' || method === 'PUT') {																				//为post请求注入x-csrf-token
+					// req.headers = {'X-CSRF-TOKEN': document.querySelector("meta[name=csrf-token]").content};
+				// }
 
 				if (needLoading && !$rootScope.showLoading) {																				//当需要展示加载中字样且加载中字样没被显示时，显示加载中字样
 					$rootScope.showLoading = true;
@@ -51,18 +51,22 @@
 				$http(req)
 					.then(
 						function(res) {																																	//统一的请求成功status处理函数可以放在这里
-							if (method === "POST") {
+							if (method === "POST" || method === "PUT") {
 								if (res.data.status_code == 200) {
 									defer.resolve(res.data);
 								} else {
 									alert(res.data.message);
+									if (removeLoading) {
+										$rootScope.showLoading = false
+									}
+									defer.reject(res.data);
 								}
 							} else {
 								defer.resolve(res.data);
 							}
 						},
 						function(err) {
-              alert(err);
+              alert(url + "," + err);
 							defer.reject(err);
 						})
 					.then(function() {

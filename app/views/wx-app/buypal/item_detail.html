@@ -7,10 +7,10 @@
 			<span ng-repeat="picture in item.localId track by $index">
 				<section class="pictureContainer">
 					<div class="squareImage" yeye-bg="picture" ng-click="previewPicture($event, $index, item.localId)"></div>
-					<span ng-click="deletePicture($event, $index, item)" class="deletePictureD">&times;</span>
+					<span ng-click="deletePicture($event, $index, item)" class="deletePictureD center">&times;</span>
 				</section>
 			</span>
-			<section ng-if="item.localId.length<6" class="btnArea"><div class="addPictureD" ng-click="addPicture($event, item)"><span>+</span></div></section>
+			<section ng-if="item.localId.length<6" class="btnArea"><div class="addPictureD center" ng-click="addPicture($event, item)"><span>+</span></div></section>
 			<section class="left_fix"></section>
 			<section class="justify_fix"></section>
 		</div>

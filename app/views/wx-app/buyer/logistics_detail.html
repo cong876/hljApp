@@ -1,42 +1,24 @@
 <div class="logisticsHead">
-  <p><b>订单状态:</b><span class="obvious">国际段运输中</span></p>
-  <p>物流公司:EMS</p>
-  <p>物流单号:1234567890</p>
+  <p><b>物流状态：</b><span class="obvious" ng-bind="logistics.message"></span></p>
+  <hr/>
+  <div ng-repeat="phase in logistics.phases track by $index">
+    <hr id="logisticsSplit" ng-show="$odd"/>
+    <p>物流公司：<span ng-bind="phase.name"></span></p>
+    <p>物流单号：<span ng-bind="phase.number"></span></p>
+  </div>
 </div>
 <div class="logisticsContent">
   <b>物流跟踪</b>
   <hr/>
+  <div ng-if="logistics.track_log.length == 0">暂无物流信息</div>
   <div class="logisticsDetail">
-    <div class="obvious">
-      <div class="topHide"></div>
-      <div class="markPoint"><span></span></div>
-      <p>到达北京</p>
-      <p>2016-01-20 18:00:00</p>
-      <hr/>
-    </div>
-    <div>
-      <div class="markPoint"></div>
-      <p>到达北京</p>
-      <p>2016-01-20 18:00:00</p>
-      <hr/>
-    </div>
-    <div>
-      <div class="markPoint"></div>
-      <p>到达北京</p>
-      <p>2016-01-20 18:00:00</p>
-      <hr/>
-    </div>
-    <div>
-      <div class="markPoint"></div>
-      <p>到达北京</p>
-      <p>2016-01-20 18:00:00</p>
-      <hr/>
-    </div>
-    <div>
-      <div class="bottomHide"></div>
-      <div class="markPoint"></div>
-      <p>到达北京</p>
-      <p>2016-01-20 18:00:00</p>
+    <div ng-repeat="log in logistics.track_log | orderBy:log.time:true track by $index" ng-class="{'obvious': $first}">
+      <div ng-show="$first" class="topHide"></div>
+      <div ng-show="$last" class="bottomHide"></div>
+      <div ng-show="$first" class="markPoint"><div></div></div>
+      <div ng-show="!$first" class="markPoint"></div>
+      <p ng-bind="log.context"></p>
+      <p ng-bind="log.time"></p>
       <hr/>
     </div>
   </div>

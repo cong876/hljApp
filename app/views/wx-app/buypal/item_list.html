@@ -7,21 +7,21 @@
           </div>
         </div>
         <div class="itemTitleAreaL left">
-          <span ng-bind="substr(item.title,64)"></span>
+          <span ng-bind="substr(item.title,58)"></span>
         </div>
         <div class="itemInfoAreaL left" ng-click="stop($event)">
           <span class="icon-delete" ng-click="deleteItem($index)" yeye-prevent></span>
-          <span class="itemNumberAreaL">
+          <span class="itemNumberAreaL center">
             <span ng-click="" yeye-number="item.number" yeye-number-method="sub" yeye-total="totalNumber">-</span><span ng-bind="item.number"></span><span ng-click="" yeye-number="item.number" yeye-number-method="add" yeye-total="totalNumber">+</span>
           </span>
         </div>
       </li>
     </ul>
-    <div class="noItemBgArea" ng-if="requirement.length===0">
+    <div class="noItemBgArea center" ng-if="requirement.length===0">
       <img ng-src="{{hlj_url.noItemBg}}">
       <p>请告诉红领巾您想代购的国外商品哦~</p>
     </div>
-    <div class="btnArea">
+    <div class="btnArea center">
       <div class="addItem" ng-click="editItem(-1)">+</div>
     </div>
     <div class="btnWithInfo fixbottom" ng-if="requirement.length>0">

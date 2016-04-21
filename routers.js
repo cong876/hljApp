@@ -56,7 +56,7 @@ angular.module('hljApp')
         })
         .state('buyerAdmin.callUs', {
           url: '/callUs',
-          templateUrl: '/views/wx-app/buyer/call_us.html? + + new Date()'
+          templateUrl: '/views/wx-app/buyer/call_us.html?' + + new Date()
         })
         .state('buyerAdmin.profile', {
           url: '/profile',

@@ -3,17 +3,12 @@
  * main logic here;
  */
 
-
 angular.module('hljApp')
-	.controller('mainCtrl', ['$scope', 'yeyeFn', '$location', 'wxService',
-		function($scope, yeyeFn, $location, wxService) {
-			var currentHash = location.hash;
+	.controller('mainCtrl', ['$scope', 'yeyeFn', '$location', 'wxService', '$rootScope',
+		function($scope, yeyeFn, $location, wxService, $rootScope) {
 			if(location.hash.match(["#/buypal/reward"])){
 				wxService.close();
 			}
-			history.replaceState("", "", "#/bottomState");
-			history.pushState("", "", currentHash);
-      console.log(JSON.parse(document.body.dataset.init));
 	    yeyeFn.setUser(JSON.parse(document.body.dataset.init));                       //init user info
 	    $scope.stop = function(event) {
 	      event.preventDefault();
@@ -21,10 +16,17 @@ angular.module('hljApp')
 	      event.stopImmediatePropagation();
 	    };
 
-      $scope.substr = yeyeFn.subStrByByte;
+			$rootScope.user = {};
+			angular.extend($rootScope.user, yeyeFn.getUser());
 
-	    $scope.changeTab = function(newUrl) {
-        $location.path(newUrl).replace();
+
+			$scope.substr = function(str, limited) {
+        var newStr = yeyeFn.subStrByByte(str, limited);
+        return newStr[newStr.length-1]==";" ? newStr.substr(0, newStr.length-1) : newStr;
+      };
+
+      $scope.doubleNumber = function(n) {
+        return n>9 ? n : '0' + n;
       };
 
 			yeyeFn.loaded(0);

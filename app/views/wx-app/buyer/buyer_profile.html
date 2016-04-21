@@ -36,14 +36,14 @@
                 'pending': formM.verifyCode.$pending
                }">
         <p class="verifyAlert pending"
-           ng-show="!formM.verifyCode.$pending&&!formM.verifyCode.$dirty&&isCountdown.register">请接听400来电</p>
+           ng-show="!formM.verifyCode.$pending&&!formM.verifyCode.$dirty&&isCountdown.register">请注意接听来电</p>
         <p class="verifyAlert error"
            ng-show="formM.verifyCode.$dirty&&formM.verifyCode.$invalid">验证码错误</p>
         <p class="verifyAlert success"
            ng-show="!formM.verifyCode.$pending&&!formM.verifyCode.$invalid&&formM.verifyCode.$touched&&isCountdown.register">验证通过</p>
         <div class="yeye_btn white_btn small_btn" ng-model="mobileEdit"
              ng-disabled="formM.mobile.$error.pattern||formM.mobile.$invalid"
-             yeye-zone="86" yeye-countdown="重发(60s)">获取验证码</div>
+             yeye-zone="86" yeye-countdown="重发(60s)">语音验证码</div>
       </div>
       <div class="btnArea">
         <button ng-click="close('mobileEditM')">取消</button><button ng-disabled="formM.$invalid || !!formM.$pending || !formM.verifyCode.$touched" ng-click="updateMobile(mobileEdit, close)">确认</button>
@@ -63,7 +63,7 @@
 				        'error' :formE.email.$dirty&&formE.email.$invalid&&formE.email.$touched
 			         }">
         <p class="verifyAlert error"
-           ng-show="form.email.$dirty&&form.email.$invalid&&form.email.$touched">邮箱格式错误</p>
+           ng-show="formE.email.$dirty&&formE.email.$invalid&&formE.email.$touched">邮箱格式错误</p>
       </div>
       <div class="btnArea">
         <button ng-click="close('emailEditM')">取消</button><button ng-disabled="formE.$invalid" ng-click="updateEmail(emailEdit, close)">确认</button>
