@@ -10,6 +10,8 @@ Run `grunt` for building and `grunt serve` for preview.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+## built by yeoman, using angular1.48, ui-router, angular-scroll and more
+an market and order system spa.
 
 ## bootstrap in laravel5.1
 
