@@ -19,4 +19,4 @@ built by yeoman, using angular1.48, ui-router, angular-scroll and more
 
 bootstrap in laravel5.1
 
-api is online, if test, use test api in app.js.
+api is online, if test, use test api in app.js
